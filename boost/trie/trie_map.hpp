@@ -5,8 +5,8 @@
 #pragma once
 #endif
 
-#include <boost/trie/trie.hpp>
-
+//#include <boost/trie/trie.hpp>
+#include "trie.hpp"
 
 namespace boost { namespace tries {
 
@@ -126,6 +126,13 @@ public:
 		return t.insert_unique(container, value);
 	}
 
+	// findLongestPrefixOfKey
+	template<typename Iter>
+	iterator findLongestPrefixOfKey(Iter first, Iter last)
+	{
+		return t.findLongestPrefixOfKey(first, last);
+	}
+
 	// find
 	template<typename Iter>
 	iterator find(Iter first, Iter last)
@@ -137,6 +144,12 @@ public:
 	iterator find(const Container& container)
 	{
 		return t.find(container);
+	}
+
+	template<typename Container>
+	iterator findLongestPrefixOfKey(const Container& container)
+	{
+		return t.findLongestPrefixOfKey(container);
 	}
 
 	// count

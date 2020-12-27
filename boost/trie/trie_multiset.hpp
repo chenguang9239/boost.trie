@@ -5,7 +5,8 @@
 #pragma once
 #endif
 
-#include <boost/trie/trie.hpp>
+//#include <boost/trie/trie.hpp>
+#include "trie.hpp"
 #include <boost/blank.hpp>
 
 namespace boost { namespace tries {

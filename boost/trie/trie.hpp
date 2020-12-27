@@ -953,6 +953,25 @@ public:
 			return cur;
 		}
 
+	template<typename Iter>
+	node_ptr find_longest_prefix_of_key_node(Iter first, Iter last)
+	{
+		node_ptr cur = root;
+		node_ptr longestPrefixOfKeyNode = NULL;
+		for (; first != last; ++first)
+		{
+//			std::cout << "current char: " << *first << std::endl;
+			const key_type& cur_key = *first;
+			typename node_type::child_iter ci = cur->child.find(cur_key);
+
+			if (ci == cur->child.end()) break;
+
+			cur = ci->second;
+			if(!cur->no_value()) longestPrefixOfKeyNode = cur;
+		}
+		return longestPrefixOfKeyNode;
+	}
+
 	template<typename Container>
 		node_ptr find_node(const Container &container)
 		{
@@ -968,11 +987,27 @@ public:
 			return node;
 		}
 
+	template<typename Iter>
+	iterator findLongestPrefixOfKey(Iter first, Iter last)
+	{
+		node_ptr node = find_longest_prefix_of_key_node(first, last);
+		if (node == NULL || node->no_value())
+			return end();
+		return node;
+	}
+
 	template<typename Container>
 		iterator find(const Container &container)
 		{
 			return find(container.begin(), container.end());
 		}
+
+	template<typename Container>
+	iterator findLongestPrefixOfKey(const Container &container)
+	{
+		return findLongestPrefixOfKey(container.begin(), container.end());
+	}
+
 
 	// count
 	template<typename Iter>
